@@ -1265,6 +1265,123 @@ function triggerSiteCrash(reason) {
         </button>
     `;
 }
+function triggerTopSecretDossier() {
+    // 1. Создаем оверлей "Секретного досье"
+    const secretOverlay = document.createElement('div');
+    secretOverlay.id = "secret-dossier-overlay";
+    secretOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000000;
+        z-index: 10000; /* Самый высокий приоритет */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        color: #00f2ff;
+        padding: 16px;
+        box-sizing: border-box;
+        overflow-y: auto; /* На случай маленьких экранов */
+    `;
+    document.body.appendChild(secretOverlay);
+
+    // Вставляем карточку досье
+    secretOverlay.innerHTML = `
+        <div style="
+            background: #070d14;
+            border: 2px solid #b600f8;
+            box-shadow: 0 0 30px rgba(182, 0, 248, 0.4);
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+            border-radius: 4px;
+            position: relative;
+            box-sizing: border-box;
+            margin: auto; /* Центрирование при скролле */
+        ">
+            <!-- Красный угловой штамп -->
+            <div style="
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                border: 2px double #ff3b30;
+                color: #ff3b30;
+                font-weight: 900;
+                padding: 4px 10px;
+                transform: rotate(12deg);
+                font-size: 11px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                pointer-events: none;
+            ">TOP SECRET</div>
+
+            <h3 style="color: #00f2ff; font-size: 18px; font-weight: bold; margin-top: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(0,242,255,0.2); padding-bottom: 10px; text-align: left;">
+                📂 ЛИЧНОЕ ДЕЛО // РЕЗЕРВНЫЙ АРХИВ
+            </h3>
+            
+            <div style="color: #dae3ee; font-size: 13px; line-height: 1.8; text-align: left;">
+                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">ОБЪЕКТ:</strong> Роман Максимов</p>
+                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">ВОЗРАСТ:</strong> 15 лет</p>
+                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">СТАТУС:</strong> Учащийся 10-го класса (ФизМат профиль)</p>
+                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">СПЕЦИАЛИЗАЦИЯ:</strong> Проектирование квантово-устойчивых систем шифрования</p>
+                
+                <p style="margin-top: 20px; font-style: italic; color: #b9cacb; border-left: 3px solid #b600f8; padding-left: 10px; font-size: 12px;">
+                    "Несмотря на юный возраст, объект успешно симулирует физические процессы квантового распределения ключей и разрабатывает защищённые сетевые туннели."
+                </p>
+            </div>
+
+            <!-- Кнопка возврата -->
+            <button id="close-secret-btn" style="
+                margin-top: 25px;
+                width: 100%;
+                background: #b600f8;
+                color: white;
+                border: none;
+                padding: 12px;
+                font-weight: bold;
+                font-family: inherit;
+                cursor: pointer;
+                font-size: 12px;
+                letter-spacing: 1px;
+                transition: background 0.2s;
+                text-transform: uppercase;
+                border-radius: 2px;
+            ">ВЕРНУТЬСЯ В ТЕРМИНАЛ</button>
+        </div>
+    `;
+
+    // 2. Логика закрытия секретного досье
+    const closeBtn = document.getElementById('close-secret-btn');
+    closeBtn.addEventListener('click', () => {
+        secretOverlay.remove();
+        
+        // Возвращаем фокус и разблокируем оригинальный терминал
+        const mainInput = document.getElementById('terminal-input') || document.querySelector('input[type="text"]');
+        if (mainInput) {
+            mainInput.disabled = false;
+            mainInput.focus();
+        }
+        
+        // Выводим сообщение в консоль, если функция логирования доступна
+        if (typeof appendTerminalOutput === "function") {
+            appendTerminalOutput('<span class="text-emerald-400">[✓] Доступ к секретному архиву закрыт. Сессия восстановлена.</span>');
+        }
+    });
+
+    // Обработка кнопки "Назад" в браузере или ESC на клавиатуре для закрытия
+    const handleEsc = (e) => {
+        if (e.key === 'Escape') {
+            closeBtn.click();
+            document.removeEventListener('keydown', handleEsc);
+        }
+    };
+    document.addEventListener('keydown', handleEsc);
+}
+
 
     </script>
 </body>
