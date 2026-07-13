@@ -1055,8 +1055,9 @@ case 'help':
 
 // Добавь новый кейс для команды '?!':
 case '?!':
-    startSecretDinoGame();
+    startSecretQuestionGame();
     return;
+
 
                 case 'about':
                     reply = 'Роман Максимов. Исследователь квантовой криптографии и Python-разработчик. Стек: Python, C++, Qiskit, PyCryptodome.';
@@ -1125,106 +1126,144 @@ case '?!':
                 document.getElementById('contact-form').reset();
             }, 1200);
         }
-function startSecretDinoGame() {
-    appendTerminalOutput('<span class="text-brand-violet-light animate-pulse">[!] ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА "DINO_CHROME.EXE"...</span>');
-    terminalInput.disabled = true; // Блокируем ввод на время игры
-    terminalInput.blur();          // Прячем экранную клавиатуру на телефоне
+function startSecretQuestionGame() {
+    terminalInput.disabled = true;
+    terminalInput.blur();
 
-    let width = 24; // Чуть уменьшили ширину, чтобы на экранах телефонов строка не переносилась
-    let dinoPos = 2;
-    let cactusPos = 22;
-    let score = 0;
-    
-    // Создаем элемент для анимации игры
-    const gameDiv = document.createElement('div');
-    gameDiv.className = "font-mono text-xs my-2 p-3 bg-brand-surface border border-brand-violet/30 rounded-sm select-none touch-none";
-    terminalContent.appendChild(gameDiv);
+    // 1. Создаем полноэкранный оверлей проверки безопасности
+    const overlay = document.createElement('div');
+    overlay.id = "security-chokepoint";
+    overlay.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: #03070b; z-index: 9999; display: flex;
+        align-items: center; justify-content: center;
+        font-family: 'JetBrains Mono', monospace; padding: 20px; box-sizing: border-box;
+    `;
+    document.body.appendChild(overlay);
 
-    const gameInterval = setInterval(() => {
-        // Логика движения кактуса
-        cactusPos--;
-        if (cactusPos < 0) {
-            cactusPos = 22;
-            score++;
-        }
+    overlay.innerHTML = `
+        <div style="
+            background: #070d14; border: 1px solid #00f2ff;
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.15);
+            padding: 40px; max-width: 500px; width: 100%; border-radius: 2px;
+            text-align: center;
+        ">
+            <div style="color: #ff3b30; font-weight: bold; font-size: 14px; margin-bottom: 15px; letter-spacing: 2px;" class="animate-pulse">
+                ⚠ SECURITY ALERT: AUTHORIZATION REQUIRED ⚠
+            </div>
+            
+            <p style="color: #dae3ee; font-size: 12px; line-height: 1.6; margin-bottom: 25px;">
+                Запрошен доступ к деclassified файлам. Подтвердите личность. <br>
+                <span style="color: #00f2ff;">Категория протоколов, симуляцию которых разработал Роман?</span> (3 буквы, латиница)
+            </p>
 
-        // Рендерим кадр игры в текстовом виде
-        let line = Array(width).fill(' ');
-        line[dinoPos] = '🦖';
-        line[cactusPos] = '🌵';
+            <!-- Поле ввода -->
+            <input type="text" id="auth-code-input" autofocus autocomplete="off" style="
+                background: #0c1520; border: 1px solid rgba(0, 242, 255, 0.3);
+                color: #00f2ff; text-align: center; font-size: 24px; font-weight: bold;
+                letter-spacing: 6px; width: 100%; padding: 12px; margin-bottom: 20px;
+                outline: none; text-transform: uppercase;
+            ">
+
+            <!-- Обратный отсчет -->
+            <div style="font-size: 11px; color: #b9cacb; margin-top: 10px;">
+                До критического сбоя системы: 
+                <span id="countdown-timer" style="color: #ff3b30; font-size: 20px; font-weight: bold; margin-left: 5px;">5.00</span> сек
+            </div>
+        </div>
+    `;
+
+    const input = document.getElementById('auth-code-input');
+    const timerDisplay = document.getElementById('countdown-timer');
+    input.focus();
+
+    let timeLeft = 5.00;
+    let gameActive = true;
+
+    // 2. Таймер обратного отсчета с точностью до сотых секунды
+    const interval = setInterval(() => {
+        if (!gameActive) return;
         
-        // Рисуем "землю" снизу
-        let ground = Array(width).fill('_').join('');
+        timeLeft -= 0.05;
+        if (timeLeft <= 0) {
+            timeLeft = 0;
+            clearInterval(interval);
+            gameActive = false;
+            triggerSiteCrash("TIME_EXCEEDED"); // Время вышло -> краш!
+        }
+        timerDisplay.innerText = timeLeft.toFixed(2);
+    }, 50);
+
+    // 3. Отслеживание ввода пользователя
+    input.addEventListener('input', () => {
+        if (!gameActive) return;
         
-        gameDiv.innerHTML = `
-            <div class="text-brand-cyan">SCORE: ${score}/3</div>
-            <div class="text-white">${line.join('')}</div>
-            <div class="text-brand-text-muted">${ground}</div>
-            <div class="text-[10px] text-brand-violet-light/80 mt-1.5 animate-pulse">👉 НАЖМИТЕ НА ЭКРАН ИЛИ [ПРОБЕЛ] ДЛЯ ПРЫЖКА!</div>
-        `;
-
-        // Обработка прыжка (анимация)
-        if (dinoIsJumping) {
-            line[dinoPos] = ' '; // Убираем с земли
-            gameDiv.innerHTML = `
-                <div class="text-brand-cyan font-bold">SCORE: ${score}/3 (JUMP!)</div>
-                <div class="text-white" style="margin-bottom: 4px;">  🦖</div>
-                <div class="text-white">${line.join('')}</div>
-                <div class="text-brand-text-muted">${ground}</div>
-            `;
+        const answer = input.value.trim().toUpperCase();
+        if (answer === "QKD") { // QKD (Quantum Key Distribution)
+            clearInterval(interval);
+            gameActive = false;
+            overlay.remove();
+            triggerTopSecretDossier(); // Успех! Показываем досье
         }
+    });
 
-        // Проверка столкновения
-        if (cactusPos === dinoPos && !dinoIsJumping) {
-            clearInterval(gameInterval);
-            cleanupControls();
-            gameDiv.innerHTML = `<span class="text-red-500 font-bold">💥 СТОЛКНОВЕНИЕ! ПОПЫТКА СБРОШЕНА.</span>`;
-            terminalInput.disabled = false;
+    // Если нажал Enter с неправильным ответом
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && gameActive) {
+            const answer = input.value.trim().toUpperCase();
+            if (answer !== "QKD") {
+                clearInterval(interval);
+                gameActive = false;
+                triggerSiteCrash("INVALID_AUTH_CODE");
+            }
         }
-
-        // Условие победы
-        if (score >= 3) {
-            clearInterval(gameInterval);
-            cleanupControls();
-            gameDiv.innerHTML = `<span class="text-emerald-400 font-bold">🎉 ДИНОЗАВРИК УСПЕШНО СБЕЖАЛ!</span>`;
-            setTimeout(triggerTopSecretDossier, 1000);
-        }
-
-    }, 130);
-
-    let dinoIsJumping = false;
+    });
+}
+function triggerSiteCrash(reason) {
+    const overlay = document.getElementById('security-chokepoint');
     
-    // Функция активации прыжка
-    function triggerJump() {
-        if (!dinoIsJumping) {
-            dinoIsJumping = true;
-            setTimeout(() => { dinoIsJumping = false; }, 400); // Время прыжка
-        }
-    }
+    // Превращаем экран в "Синий экран квантовой смерти" (BSOD)
+    overlay.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: #0000aa; z-index: 10000; display: flex;
+        flex-direction: column; align-items: flex-start; justify-content: center;
+        font-family: 'Courier New', monospace; color: #ffffff;
+        padding: 10% 15%; box-sizing: border-box; text-align: left;
+    `;
 
-    // Обработчик для ПК (Пробел)
-    function handleKeyDown(e) {
-        if (e.code === 'Space') {
-            e.preventDefault(); // Запрещаем прокрутку страницы пробелом
-            triggerJump();
-        }
-    }
+    let errorCode = reason === "TIME_EXCEEDED" ? "0x000000F4_TIMEOUT_EXCEEDED" : "0x0000000A_BAD_AUTHENTICATION";
 
-    // Обработчик для мобильных (Тап по блоку игры)
-    function handleTouch(e) {
-        e.preventDefault(); // Запрещаем зум и лишние скроллы
-        triggerJump();
-    }
+    overlay.innerHTML = `
+        <div style="background: #ffffff; color: #0000aa; font-weight: bold; padding: 2px 10px; margin-bottom: 30px; font-size: 18px;">
+            SYSTEM_HALTED
+        </div>
+        
+        <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">
+            A fatal exception has occurred. Cryptographic stability is lost.
+        </h1>
+        
+        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 40px; max-width: 800px;">
+            Произошла критическая ошибка декогеренции при попытке несанкционированного доступа. 
+            Канал связи перехвачен наблюдателем (Евой). Квантовая запутанность разрушена. 
+            Продолжение работы в текущей сессии невозможно во избежание утечки энтропии.
+        </p>
 
-    // Вешаем оба слушателя событий
-    document.addEventListener('keydown', handleKeyDown);
-    gameDiv.addEventListener('touchstart', handleTouch);
+        <div style="font-size: 13px; margin-bottom: 40px;">
+            * Technical Information:<br>
+            *** STOP: ${errorCode}<br>
+            *** TARGET_NODE: ROMAN_MAXIMOV_CORE_NODE<br>
+            *** MEMORY_DUMP: CLONE_FAIL_ANTITAMPER_ACTIVE
+        </div>
 
-    // Функция удаления слушателей при конце игры
-    function cleanupControls() {
-        document.removeEventListener('keydown', handleKeyDown);
-        gameDiv.removeEventListener('touchstart', handleTouch);
-    }
+        <button onclick="window.location.reload()" style="
+            background: #ffffff; color: #0000aa; border: none;
+            padding: 12px 30px; font-weight: bold; font-family: inherit;
+            cursor: pointer; font-size: 14px; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        ">
+            Перезагрузить систему (F5)
+        </button>
+    `;
 }
 
     </script>
