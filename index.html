@@ -1039,18 +1039,25 @@
             // Output user input first
             appendTerminalOutput(`<span class="text-brand-violet-light">roman@q_node:~$</span> <span class="text-white">${cmd}</span>`);
 
-            switch(cmd) {
-                case 'help':
-                    reply = `
-                      <span class="text-brand-cyan">Поддерживаемые команды:</span><br>
-                      - <span class="text-white">about</span>: Справка о Романе Максимове<br>
-                      - <span class="text-white">certs</span>: Список проверенных сертификатов<br>
-                      - <span class="text-white">projects</span>: Сводка по вашим ключевым разработкам<br>
-                      - <span class="text-white">decrypt</span>: Симуляция дешифрования данных SHA-256<br>
-                      - <span class="text-white">contact</span>: Получить прямые контактные данные<br>
-                      - <span class="text-white">clear</span>: Очистить консоль
-                    `;
-                    break;
+            switch(cmd) {               
+case 'help':
+    reply = `
+      <span class="text-brand-cyan">Поддерживаемые команды:</span><br>
+      - <span class="text-white">about</span>: Справка о Романе Максимове<br>
+      - <span class="text-white">certs</span>: Список проверенных сертификатов<br>
+      - <span class="text-white">projects</span>: Сводка по вашим ключевым разработкам<br>
+      - <span class="text-white">decrypt</span>: Симуляция дешифрования данных SHA-256<br>
+      - <span class="text-white">contact</span>: Получить прямые контактные данные<br>
+      - <span class="text-white">clear</span>: Очистить консоль<br>
+      - <span class="text-brand-violet-light font-bold">?!</span>: <span class="text-brand-violet-light/70">[СИСТЕМНАЯ АНОМАЛИЯ]</span>
+    `;
+    break;
+
+// Добавь новый кейс для команды '?!':
+case '?!':
+    startSecretDinoGame();
+    return;
+
                 case 'about':
                     reply = 'Роман Максимов. Исследователь квантовой криптографии и Python-разработчик. Стек: Python, C++, Qiskit, PyCryptodome.';
                     break;
@@ -1118,6 +1125,177 @@
                 document.getElementById('contact-form').reset();
             }, 1200);
         }
+function startSecretDinoGame() {
+    appendTerminalOutput('<span class="text-brand-violet-light animate-pulse">[!] ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА "DINO_CHROME.EXE"...</span>');
+    terminalInput.disabled = true; // Блокируем ввод на время игры
+
+    let width = 30;
+    let dinoPos = 3;
+    let cactusPos = 28;
+    let score = 0;
+    
+    // Создаем элемент для анимации игры
+    const gameDiv = document.createElement('div');
+    gameDiv.className = "font-mono text-xs my-2 p-2 bg-brand-surface border border-brand-violet/30 rounded-sm";
+    terminalContent.appendChild(gameDiv);
+
+    const gameInterval = setInterval(() => {
+        // Логика движения кактуса
+        cactusPos--;
+        if (cactusPos < 0) {
+            cactusPos = 28;
+            score++;
+        }
+
+        // Рендерим кадр игры в текстовом виде
+        let line = Array(width).fill(' ');
+        line[dinoPos] = '🦖';
+        line[cactusPos] = '🌵';
+        
+        // Рисуем "землю" снизу
+        let ground = Array(width).fill('_').join('');
+        
+        gameDiv.innerHTML = `
+            <div class="text-brand-cyan">SCORE: ${score}/3</div>
+            <div class="text-white">${line.join('')}</div>
+            <div class="text-brand-text-muted">${ground}</div>
+            <div class="text-[10px] text-brand-text-muted/50 mt-1">Нажмите [ПРОБЕЛ] для прыжка!</div>
+        `;
+
+        // Обработка прыжка (анимация)
+        if (dinoIsJumping) {
+            line[dinoPos] = ' '; // Убираем с земли
+            // Рисуем динозаврика чуть выше
+            gameDiv.innerHTML = `
+                <div class="text-brand-cyan font-bold">SCORE: ${score}/3 (JUMP!)</div>
+                <div class="text-white" style="margin-bottom: 4px;">   🦖</div>
+                <div class="text-white">${line.join('')}</div>
+                <div class="text-brand-text-muted">${ground}</div>
+            `;
+        }
+
+        // Проверка столкновения
+        if (cactusPos === dinoPos && !dinoIsJumping) {
+            clearInterval(gameInterval);
+            document.removeEventListener('keydown', handleJump);
+            gameDiv.innerHTML = `<span class="text-red-500 font-bold">💥 СТОЛКНОВЕНИЕ! ПОПЫТКА СБРОШЕНА.</span>`;
+            terminalInput.disabled = false;
+        }
+
+        // Условие победы (нужно набрать 3 очка)
+        if (score >= 3) {
+            clearInterval(gameInterval);
+            document.removeEventListener('keydown', handleJump);
+            gameDiv.innerHTML = `<span class="text-emerald-400 font-bold">🎉 ДИНОЗАВРИК УСПЕШНО СБЕЖАЛ!</span>`;
+            setTimeout(triggerTopSecretDossier, 1000);
+        }
+
+    }, 120);
+
+    let dinoIsJumping = false;
+    function handleJump(e) {
+        if (e.code === 'Space' && !dinoIsJumping) {
+            dinoIsJumping = true;
+            setTimeout(() => { dinoIsJumping = false; }, 400); // Время прыжка
+        }
+    }
+
+    document.addEventListener('keydown', handleJump);
+}
+
+function triggerTopSecretDossier() {
+    // 1. Делаем эффект "выключения" экрана (всё темнеет)
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'JetBrains Mono', monospace;
+        color: #00f2ff;
+        padding: 20px;
+        box-sizing: border-box;
+    `;
+    document.body.appendChild(overlay);
+
+    // Звуковой или визуальный щелчок при выключении
+    overlay.innerHTML = `<div class="animate-ping text-red-500 text-lg font-bold">⚠ WARNING: ACCESSING DECLASSIFIED DATA ⚠</div>`;
+
+    setTimeout(() => {
+        // 2. Показываем "лист" с грифом TOP SECRET
+        overlay.innerHTML = `
+            <div style="
+                background: #111;
+                border: 2px solid #b600f8;
+                box-shadow: 0 0 30px rgba(182, 0, 248, 0.4);
+                padding: 40px;
+                max-width: 550px;
+                width: 100%;
+                border-radius: 4px;
+                position: relative;
+                animation: scanline 2s infinite linear;
+            ">
+                <!-- Штамп -->
+                <div style="
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    border: 3px double #ff3b30;
+                    color: #ff3b30;
+                    font-weight: 900;
+                    padding: 5px 15px;
+                    transform: rotate(12deg);
+                    font-size: 14px;
+                    letter-spacing: 2px;
+                ">TOP SECRET</div>
+
+                <h3 style="color: #00f2ff; font-size: 20px; font-weight: bold; margin-bottom: 20px; border-b: 1px solid rgba(0,242,255,0.2); padding-bottom: 10px;">
+                    📂 ЛИЧНОЕ ДЕЛО // РЕЗЕРВНЫЙ АРХИВ
+                </h3>
+                
+                <div style="color: #dae3ee; font-size: 13px; line-height: 1.8;">
+                    <p><strong style="color: #00f2ff;">ОБЪЕКТ:</strong> Роман Максимов</p>
+                    <p><strong style="color: #00f2ff;">ВОЗРАСТ:</strong> 15 лет</p>
+                    <p><strong style="color: #00f2ff;">СТАТУС:</strong> Учащийся 10-го класса (ФизМат профиль)</p>
+                    <p><strong style="color: #00f2ff;">СПЕЦИАЛИЗАЦИЯ:</strong> Проектирование квантово-устойчивых систем шифрования</p>
+                    <p style="margin-top: 15px; font-style: italic; color: #b9cacb; border-left: 3px solid #b600f8; padding-left: 10px;">
+                        "Несмотря на юный возраст, объект успешно симулирует физические процессы квантового распределения ключей и разрабатывает защищённые сетевые туннели."
+                    </p>
+                </div>
+
+                <button id="close-secret-btn" style="
+                    margin-top: 30px;
+                    width: 100%;
+                    background: #b600f8;
+                    color: white;
+                    border: none;
+                    padding: 10px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    font-size: 12px;
+                    letter-spacing: 1px;
+                    transition: all 0.3s;
+                ">ВЕРНУТЬСЯ В ТЕРМИНАЛ</button>
+            </div>
+        `;
+
+        document.getElementById('close-secret-btn').addEventListener('click', () => {
+            overlay.remove();
+            terminalInput.disabled = false;
+            terminalInput.focus();
+            appendTerminalOutput('<span class="text-emerald-400">[✓] Доступ к секретному архиву закрыт. Сессия восстановлена.</span>');
+        });
+
+    }, 1500);
+}
+
     </script>
 </body>
 </html>
