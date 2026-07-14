@@ -7,8 +7,10 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="Портфолио Романа Максимова: исследования в области квантовой криптографии, Python разработка и награды в олимпиадах.">
     
-    <!-- Tailwind CSS with custom configuration -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <!-- Robust Multi-CDN Fallback loader for Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.10/tailwindcss-with-forms.js" 
+            onerror="this.onerror=null; this.src='https://unpkg.com/tailwindcss-cdn@3.4.10/tailwindcss-with-forms.js'; this.onerror=function(){ this.onerror=null; this.src='https://cdn.tailwindcss.com?plugins=forms'; };"></script>
+            
     <!-- Three.js for 3D Quantum Space simulation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- FontAwesome Icons -->
@@ -19,30 +21,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-bg': '#060a0f',
-                        'brand-surface': '#0b141c',
-                        'brand-surface-low': '#141c24',
-                        'brand-surface-container': '#182028',
-                        'brand-cyan': '#00f2ff',
-                        'brand-cyan-dim': '#00dbe7',
-                        'brand-violet': '#b600f8',
-                        'brand-violet-light': '#ebb2ff',
-                        'brand-text': '#dae3ee',
-                        'brand-text-muted': '#b9cacb',
-                        'brand-border': 'rgba(0, 242, 255, 0.1)',
-                        'brand-border-focus': 'rgba(0, 242, 255, 0.4)'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
+        // Safe check to avoid Uncaught ReferenceError if all CDNs are unreachable
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            'brand-bg': '#060a0f',
+                            'brand-surface': '#0b141c',
+                            'brand-surface-low': '#141c24',
+                            'brand-surface-container': '#182028',
+                            'brand-cyan': '#00f2ff',
+                            'brand-cyan-dim': '#00dbe7',
+                            'brand-violet': '#b600f8',
+                            'brand-violet-light': '#ebb2ff',
+                            'brand-text': '#dae3ee',
+                            'brand-text-muted': '#b9cacb',
+                            'brand-border': 'rgba(0, 242, 255, 0.1)',
+                            'brand-border-focus': 'rgba(0, 242, 255, 0.4)'
+                        },
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            mono: ['JetBrains Mono', 'monospace']
+                        }
                     }
                 }
-            }
+            };
+        } else {
+            console.error("Critical Warning: Tailwind is not defined! Using fallback baseline styling.");
         }
     </script>
 
@@ -271,7 +278,7 @@
             <div class="glass-card p-6 md:p-10 rounded-sm w-full">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     
-                    <!-- Control Panel (Left 4 cols) -->
+                    <!-- Control Panel -->
                     <div class="lg:col-span-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-brand-border pb-6 lg:pb-0 lg:pr-8">
                         <div>
                             <h4 class="font-mono text-sm font-bold text-white uppercase tracking-wider mb-4">Управление экспериментом</h4>
@@ -310,7 +317,7 @@
                         </div>
                     </div>
 
-                    <!-- Visual Panel (Right 8 cols) -->
+                    <!-- Visual Panel -->
                     <div class="lg:col-span-8 flex flex-col justify-between">
                         <!-- Live Grid of Qubits -->
                         <div>
@@ -624,7 +631,6 @@
     </section>
 
     <!-- Console / Contact Section -->
-    <!-- Console / Contact Section -->
     <section id="console-section" class="py-24 bg-brand-bg border-t border-brand-border relative">
         <div class="max-w-4xl mx-auto px-6 md:px-16">
             <div class="mb-12 text-center">
@@ -632,7 +638,7 @@
                 <h3 class="text-4xl font-black uppercase tracking-tight text-white">Связаться со мной</h3>
             </div>
 
-            <!-- Terminal Shell Widget (Центрирован на всю ширину) -->
+            <!-- Terminal Shell Widget -->
             <div class="bg-black/80 rounded-md border border-brand-cyan/20 overflow-hidden shadow-2xl flex flex-col min-h-[400px] w-full">
                 <!-- Terminal Title bar -->
                 <div class="bg-brand-surface-low px-4 py-3 border-b border-brand-cyan/15 flex justify-between items-center text-xs font-mono">
@@ -730,7 +736,6 @@
 
     <!-- Scripts Area -->
     <script>
-        /* Three.js Background Animation (Quantum Network & Noise Particles) */
         let scene, camera, renderer, particles;
 
         function initThreeJS() {
@@ -817,7 +822,6 @@
         });
 
 
-        /* BB84 QKD Simulation Logic */
         let qkdState = {
             step: 0,
             aliceBits: [],
@@ -1016,7 +1020,6 @@
             document.getElementById('step-btn-3').classList.remove('bg-brand-cyan', 'text-brand-bg');
         }
 
-        /* Developer Command Line Terminal logic */
         const terminalInput = document.getElementById('terminal-input');
         const terminalContent = document.getElementById('terminal-content');
         const terminalScreen = document.getElementById('terminal-screen');
@@ -1040,24 +1043,22 @@
             appendTerminalOutput(`<span class="text-brand-violet-light">roman@q_node:~$</span> <span class="text-white">${cmd}</span>`);
 
             switch(cmd) {               
-case 'help':
-    reply = `
-      <span class="text-brand-cyan">Поддерживаемые команды:</span><br>
-      - <span class="text-white">about</span>: Справка о Романе Максимове<br>
-      - <span class="text-white">certs</span>: Список проверенных сертификатов<br>
-      - <span class="text-white">projects</span>: Сводка по вашим ключевым разработкам<br>
-      - <span class="text-white">decrypt</span>: Симуляция дешифрования данных SHA-256<br>
-      - <span class="text-white">contact</span>: Получить прямые контактные данные<br>
-      - <span class="text-white">clear</span>: Очистить консоль<br>
-      - <span class="text-brand-violet-light font-bold">?!</span>: <span class="text-brand-violet-light/70">[СИСТЕМНАЯ АНОМАЛИЯ]</span>
-    `;
-    break;
+                case 'help':
+                    reply = `
+                      <span class="text-brand-cyan">Поддерживаемые команды:</span><br>
+                      - <span class="text-white">about</span>: Справка о Романе Максимове<br>
+                      - <span class="text-white">certs</span>: Список проверенных сертификатов<br>
+                      - <span class="text-white">projects</span>: Сводка по вашим ключевым разработкам<br>
+                      - <span class="text-white">decrypt</span>: Симуляция дешифрования данных SHA-256<br>
+                      - <span class="text-white">contact</span>: Получить прямые контактные данные<br>
+                      - <span class="text-white">clear</span>: Очистить консоль<br>
+                      - <span class="text-brand-violet-light font-bold">?!</span>: <span class="text-brand-violet-light/70">[СИСТЕМНАЯ АНОМАЛИЯ]</span>
+                    `;
+                    break;
 
-// Добавь новый кейс для команды '?!':
-case '?!':
-    startSecretQuestionGame();
-    return;
-
+                case '?!':
+                    startSecretQuestionGame();
+                    return;
 
                 case 'about':
                     reply = 'Роман Максимов. Исследователь квантовой криптографии и Python-разработчик. Стек: Python, C++, Qiskit, PyCryptodome.';
@@ -1126,263 +1127,252 @@ case '?!':
                 document.getElementById('contact-form').reset();
             }, 1200);
         }
-function startSecretQuestionGame() {
-    terminalInput.disabled = true;
-    terminalInput.blur();
 
-    // 1. Создаем полноэкранный оверлей проверки безопасности
-    const overlay = document.createElement('div');
-    overlay.id = "security-chokepoint";
-    overlay.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: #03070b; z-index: 9999; display: flex;
-        align-items: center; justify-content: center;
-        font-family: 'JetBrains Mono', monospace; padding: 20px; box-sizing: border-box;
-    `;
-    document.body.appendChild(overlay);
+        function startSecretQuestionGame() {
+            terminalInput.disabled = true;
+            terminalInput.blur();
 
-    overlay.innerHTML = `
-        <div style="
-            background: #070d14; border: 1px solid #00f2ff;
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.15);
-            padding: 40px; max-width: 500px; width: 100%; border-radius: 2px;
-            text-align: center;
-        ">
-            <div style="color: #ff3b30; font-weight: bold; font-size: 14px; margin-bottom: 15px; letter-spacing: 2px;" class="animate-pulse">
-                ⚠ SECURITY ALERT: AUTHORIZATION REQUIRED ⚠
-            </div>
-            
-            <p style="color: #dae3ee; font-size: 12px; line-height: 1.6; margin-bottom: 25px;">
-                Запрошен доступ к деclassified файлам. Подтвердите личность. <br>
-                <span style="color: #00f2ff;">Категория протоколов, симуляцию которых разработал Роман?</span> (3 буквы, латиница)
-            </p>
+            // Create security check overlay
+            const overlay = document.createElement('div');
+            overlay.id = "security-chokepoint";
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                background: #03070b; z-index: 9999; display: flex;
+                align-items: center; justify-content: center;
+                font-family: 'JetBrains Mono', monospace; padding: 20px; box-sizing: border-box;
+            `;
+            document.body.appendChild(overlay);
 
-            <!-- Поле ввода -->
-            <input type="text" id="auth-code-input" autofocus autocomplete="off" style="
-                background: #0c1520; border: 1px solid rgba(0, 242, 255, 0.3);
-                color: #00f2ff; text-align: center; font-size: 24px; font-weight: bold;
-                letter-spacing: 6px; width: 100%; padding: 12px; margin-bottom: 20px;
-                outline: none; text-transform: uppercase;
-            ">
+            overlay.innerHTML = `
+                <div style="
+                    background: #070d14; border: 1px solid #00f2ff;
+                    box-shadow: 0 0 40px rgba(0, 242, 255, 0.15);
+                    padding: 40px; max-width: 500px; width: 100%; border-radius: 2px;
+                    text-align: center;
+                ">
+                    <div style="color: #ff3b30; font-weight: bold; font-size: 14px; margin-bottom: 15px; letter-spacing: 2px;" class="animate-pulse">
+                        ⚠ SECURITY ALERT: AUTHORIZATION REQUIRED ⚠
+                    </div>
+                    
+                    <p style="color: #dae3ee; font-size: 12px; line-height: 1.6; margin-bottom: 25px;">
+                        Запрошен доступ к declassified файлам. Подтвердите личность. <br>
+                        <span style="color: #00f2ff;">Категория протоколов, симуляцию которых разработал Роман?</span> (3 буквы, латиница)
+                    </p>
 
-            <!-- Обратный отсчет -->
-            <div style="font-size: 11px; color: #b9cacb; margin-top: 10px;">
-                До критического сбоя системы: 
-                <span id="countdown-timer" style="color: #ff3b30; font-size: 20px; font-weight: bold; margin-left: 5px;">5.00</span> сек
-            </div>
-        </div>
-    `;
+                    <!-- Input field -->
+                    <input type="text" id="auth-code-input" autofocus autocomplete="off" style="
+                        background: #0c1520; border: 1px solid rgba(0, 242, 255, 0.3);
+                        color: #00f2ff; text-align: center; font-size: 24px; font-weight: bold;
+                        letter-spacing: 6px; width: 100%; padding: 12px; margin-bottom: 20px;
+                        outline: none; text-transform: uppercase;
+                    ">
 
-    const input = document.getElementById('auth-code-input');
-    const timerDisplay = document.getElementById('countdown-timer');
-    input.focus();
+                    <!-- Timer countdown -->
+                    <div style="font-size: 11px; color: #b9cacb; margin-top: 10px;">
+                        До критического сбоя системы: 
+                        <span id="countdown-timer" style="color: #ff3b30; font-size: 20px; font-weight: bold; margin-left: 5px;">5.00</span> сек
+                    </div>
+                </div>
+            `;
 
-    let timeLeft = 5.00;
-    let gameActive = true;
+            const input = document.getElementById('auth-code-input');
+            const timerDisplay = document.getElementById('countdown-timer');
+            input.focus();
 
-    // 2. Таймер обратного отсчета с точностью до сотых секунды
-    const interval = setInterval(() => {
-        if (!gameActive) return;
-        
-        timeLeft -= 0.05;
-        if (timeLeft <= 0) {
-            timeLeft = 0;
-            clearInterval(interval);
-            gameActive = false;
-            triggerSiteCrash("TIME_EXCEEDED"); // Время вышло -> краш!
-        }
-        timerDisplay.innerText = timeLeft.toFixed(2);
-    }, 50);
+            let timeLeft = 5.00;
+            let gameActive = true;
 
-    // 3. Отслеживание ввода пользователя
-    input.addEventListener('input', () => {
-        if (!gameActive) return;
-        
-        const answer = input.value.trim().toUpperCase();
-        if (answer === "QKD") { // QKD (Quantum Key Distribution)
-            clearInterval(interval);
-            gameActive = false;
-            overlay.remove();
-            triggerTopSecretDossier(); // Успех! Показываем досье
-        }
-    });
-
-    // Если нажал Enter с неправильным ответом
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && gameActive) {
-            const answer = input.value.trim().toUpperCase();
-            if (answer !== "QKD") {
-                clearInterval(interval);
-                gameActive = false;
-                triggerSiteCrash("INVALID_AUTH_CODE");
-            }
-        }
-    });
-}
-function triggerSiteCrash(reason) {
-    const overlay = document.getElementById('security-chokepoint');
-    
-    // Превращаем экран в "Синий экран квантовой смерти" (BSOD)
-    overlay.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: #0000aa; z-index: 10000; display: flex;
-        flex-direction: column; align-items: flex-start; justify-content: center;
-        font-family: 'Courier New', monospace; color: #ffffff;
-        padding: 10% 15%; box-sizing: border-box; text-align: left;
-    `;
-
-    let errorCode = reason === "TIME_EXCEEDED" ? "0x000000F4_TIMEOUT_EXCEEDED" : "0x0000000A_BAD_AUTHENTICATION";
-
-    overlay.innerHTML = `
-        <div style="background: #ffffff; color: #0000aa; font-weight: bold; padding: 2px 10px; margin-bottom: 30px; font-size: 18px;">
-            SYSTEM_HALTED
-        </div>
-        
-        <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">
-            A fatal exception has occurred. Cryptographic stability is lost.
-        </h1>
-        
-        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 40px; max-width: 800px;">
-            Произошла критическая ошибка декогеренции при попытке несанкционированного доступа. 
-            Канал связи перехвачен наблюдателем (Евой). Квантовая запутанность разрушена. 
-            Продолжение работы в текущей сессии невозможно во избежание утечки энтропии.
-        </p>
-
-        <div style="font-size: 13px; margin-bottom: 40px;">
-            * Technical Information:<br>
-            *** STOP: ${errorCode}<br>
-            *** TARGET_NODE: ROMAN_MAXIMOV_CORE_NODE<br>
-            *** MEMORY_DUMP: CLONE_FAIL_ANTITAMPER_ACTIVE
-        </div>
-
-        <button onclick="window.location.reload()" style="
-            background: #ffffff; color: #0000aa; border: none;
-            padding: 12px 30px; font-weight: bold; font-family: inherit;
-            cursor: pointer; font-size: 14px; text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        ">
-            Перезагрузить систему (F5)
-        </button>
-    `;
-}
-function triggerTopSecretDossier() {
-    // 1. Создаем оверлей "Секретного досье"
-    const secretOverlay = document.createElement('div');
-    secretOverlay.id = "secret-dossier-overlay";
-    secretOverlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #000000;
-        z-index: 10000; /* Самый высокий приоритет */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: 'JetBrains Mono', 'Courier New', monospace;
-        color: #00f2ff;
-        padding: 16px;
-        box-sizing: border-box;
-        overflow-y: auto; /* На случай маленьких экранов */
-    `;
-    document.body.appendChild(secretOverlay);
-
-    // Вставляем карточку досье
-    secretOverlay.innerHTML = `
-        <div style="
-            background: #070d14;
-            border: 2px solid #b600f8;
-            box-shadow: 0 0 30px rgba(182, 0, 248, 0.4);
-            padding: 24px;
-            max-width: 500px;
-            width: 100%;
-            border-radius: 4px;
-            position: relative;
-            box-sizing: border-box;
-            margin: auto; /* Центрирование при скролле */
-        ">
-            <!-- Красный угловой штамп -->
-            <div style="
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                border: 2px double #ff3b30;
-                color: #ff3b30;
-                font-weight: 900;
-                padding: 4px 10px;
-                transform: rotate(12deg);
-                font-size: 11px;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                pointer-events: none;
-            ">TOP SECRET</div>
-
-            <h3 style="color: #00f2ff; font-size: 18px; font-weight: bold; margin-top: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(0,242,255,0.2); padding-bottom: 10px; text-align: left;">
-                📂 ЛИЧНОЕ ДЕЛО // РЕЗЕРВНЫЙ АРХИВ
-            </h3>
-            
-            <div style="color: #dae3ee; font-size: 13px; line-height: 1.8; text-align: left;">
-                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">ОБЪЕКТ:</strong> Роман Максимов</p>
-                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">ВОЗРАСТ:</strong> 15 лет</p>
-                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">СТАТУС:</strong> Учащийся 10-го класса (ФизМат профиль)</p>
-                <p style="margin: 8px 0;"><strong style="color: #00f2ff;">СПЕЦИАЛИЗАЦИЯ:</strong> Проектирование квантово-устойчивых систем шифрования</p>
+            const interval = setInterval(() => {
+                if (!gameActive) return;
                 
-                <p style="margin-top: 20px; font-style: italic; color: #b9cacb; border-left: 3px solid #b600f8; padding-left: 10px; font-size: 12px;">
-                    "Несмотря на юный возраст, объект успешно симулирует физические процессы квантового распределения ключей и разрабатывает защищённые сетевые туннели."
+                timeLeft -= 0.05;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    clearInterval(interval);
+                    gameActive = false;
+                    triggerSiteCrash("TIME_EXCEEDED");
+                }
+                timerDisplay.innerText = timeLeft.toFixed(2);
+            }, 50);
+
+            input.addEventListener('input', () => {
+                if (!gameActive) return;
+                
+                const answer = input.value.trim().toUpperCase();
+                if (answer === "QKD") {
+                    clearInterval(interval);
+                    gameActive = false;
+                    overlay.remove();
+                    triggerTopSecretDossier();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && gameActive) {
+                    const answer = input.value.trim().toUpperCase();
+                    if (answer !== "QKD") {
+                        clearInterval(interval);
+                        gameActive = false;
+                        triggerSiteCrash("INVALID_AUTH_CODE");
+                    }
+                }
+            });
+        }
+
+        function triggerSiteCrash(reason) {
+            const overlay = document.getElementById('security-chokepoint');
+            
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                background: #0000aa; z-index: 10000; display: flex;
+                flex-direction: column; align-items: flex-start; justify-content: center;
+                font-family: 'Courier New', monospace; color: #ffffff;
+                padding: 10% 15%; box-sizing: border-box; text-align: left;
+            `;
+
+            let errorCode = reason === "TIME_EXCEEDED" ? "0x000000F4_TIMEOUT_EXCEEDED" : "0x0000000A_BAD_AUTHENTICATION";
+
+            overlay.innerHTML = `
+                <div style="background: #ffffff; color: #0000aa; font-weight: bold; padding: 2px 10px; margin-bottom: 30px; font-size: 18px;">
+                    SYSTEM_HALTED
+                </div>
+                
+                <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">
+                    A fatal exception has occurred. Cryptographic stability is lost.
+                </h1>
+                
+                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 40px; max-width: 800px;">
+                    Произошла критическая ошибка декогеренции при попытке несанкционированного доступа. 
+                    Канал связи перехвачен наблюдателем (Евой). Квантовая запутанность разрушена. 
+                    Продолжение работы в текущей сессии невозможно во избежание утечки энтропии.
                 </p>
-            </div>
 
-            <!-- Кнопка возврата -->
-            <button id="close-secret-btn" style="
-                margin-top: 25px;
-                width: 100%;
-                background: #b600f8;
-                color: white;
-                border: none;
-                padding: 12px;
-                font-weight: bold;
-                font-family: inherit;
-                cursor: pointer;
-                font-size: 12px;
-                letter-spacing: 1px;
-                transition: background 0.2s;
-                text-transform: uppercase;
-                border-radius: 2px;
-            ">ВЕРНУТЬСЯ В ТЕРМИНАЛ</button>
-        </div>
-    `;
+                <div style="font-size: 13px; margin-bottom: 40px;">
+                    * Technical Information:<br>
+                    *** STOP: ${errorCode}<br>
+                    *** TARGET_NODE: ROMAN_MAXIMOV_CORE_NODE<br>
+                    *** MEMORY_DUMP: CLONE_FAIL_ANTITAMPER_ACTIVE
+                </div>
 
-    // 2. Логика закрытия секретного досье
-    const closeBtn = document.getElementById('close-secret-btn');
-    closeBtn.addEventListener('click', () => {
-        secretOverlay.remove();
-        
-        // Возвращаем фокус и разблокируем оригинальный терминал
-        const mainInput = document.getElementById('terminal-input') || document.querySelector('input[type="text"]');
-        if (mainInput) {
-            mainInput.disabled = false;
-            mainInput.focus();
+                <button onclick="window.location.reload()" style="
+                    background: #ffffff; color: #0000aa; border: none;
+                    padding: 12px 30px; font-weight: bold; font-family: inherit;
+                    cursor: pointer; font-size: 14px; text-transform: uppercase;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                ">
+                    Перезагрузить систему (F5)
+                </button>
+            `;
         }
-        
-        // Выводим сообщение в консоль, если функция логирования доступна
-        if (typeof appendTerminalOutput === "function") {
-            appendTerminalOutput('<span class="text-emerald-400">[✓] Доступ к секретному архиву закрыт. Сессия восстановлена.</span>');
+
+        function triggerTopSecretDossier() {
+            const secretOverlay = document.createElement('div');
+            secretOverlay.id = "secret-dossier-overlay";
+            secretOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: #000000;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-family: 'JetBrains Mono', 'Courier New', monospace;
+                color: #00f2ff;
+                padding: 16px;
+                box-sizing: border-box;
+                overflow-y: auto;
+            `;
+            document.body.appendChild(secretOverlay);
+
+            secretOverlay.innerHTML = `
+                <div style="
+                    background: #070d14;
+                    border: 2px solid #b600f8;
+                    box-shadow: 0 0 30px rgba(182, 0, 248, 0.4);
+                    padding: 24px;
+                    max-width: 500px;
+                    width: 100%;
+                    border-radius: 4px;
+                    position: relative;
+                    box-sizing: border-box;
+                    margin: auto;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        border: 2px double #ff3b30;
+                        color: #ff3b30;
+                        font-weight: 900;
+                        padding: 4px 10px;
+                        transform: rotate(12deg);
+                        font-size: 11px;
+                        letter-spacing: 2px;
+                        text-transform: uppercase;
+                        pointer-events: none;
+                    ">TOP SECRET</div>
+
+                    <h3 style="color: #00f2ff; font-size: 18px; font-weight: bold; margin-top: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(0,242,255,0.2); padding-bottom: 10px; text-align: left;">
+                        📂 ЛИЧНОЕ ДЕЛО // РЕЗЕРВНЫЙ АРХИВ
+                    </h3>
+                    
+                    <div style="color: #dae3ee; font-size: 13px; line-height: 1.8; text-align: left;">
+                        <p style="margin: 8px 0;"><strong style="color: #00f2ff;">ОБЪЕКТ:</strong> Роман Максимов</p>
+                        <p style="margin: 8px 0;"><strong style="color: #00f2ff;">ВОЗРАСТ:</strong> 15 лет</p>
+                        <p style="margin: 8px 0;"><strong style="color: #00f2ff;">СТАТУС:</strong> Учащийся 10-го класса (ФизМат профиль)</p>
+                        <p style="margin: 8px 0;"><strong style="color: #00f2ff;">СПЕЦИАЛИЗАЦИЯ:</strong> Проектирование квантово-устойчивых систем шифрования</p>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #b9cacb; border-left: 3px solid #b600f8; padding-left: 10px; font-size: 12px;">
+                            "Несмотря на юный возраст, объект успешно симулирует физические процессы квантового распределения ключей и разрабатывает защищённые сетевые туннели."
+                        </p>
+                    </div>
+
+                    <button id="close-secret-btn" style="
+                        margin-top: 25px;
+                        width: 100%;
+                        background: #b600f8;
+                        color: white;
+                        border: none;
+                        padding: 12px;
+                        font-weight: bold;
+                        font-family: inherit;
+                        cursor: pointer;
+                        font-size: 12px;
+                        letter-spacing: 1px;
+                        transition: background 0.2s;
+                        text-transform: uppercase;
+                        border-radius: 2px;
+                    ">ВЕРНУТЬСЯ В ТЕРМИНАЛ</button>
+                </div>
+            `;
+
+            const closeBtn = document.getElementById('close-secret-btn');
+            closeBtn.addEventListener('click', () => {
+                secretOverlay.remove();
+                
+                const mainInput = document.getElementById('terminal-input') || document.querySelector('input[type="text"]');
+                if (mainInput) {
+                    mainInput.disabled = false;
+                    mainInput.focus();
+                }
+                
+                if (typeof appendTerminalOutput === "function") {
+                    appendTerminalOutput('<span class="text-emerald-400">[✓] Доступ к секретному архиву закрыт. Сессия восстановлена.</span>');
+                }
+            });
+
+            const handleEsc = (e) => {
+                if (e.key === 'Escape') {
+                    closeBtn.click();
+                    document.removeEventListener('keydown', handleEsc);
+                }
+            };
+            document.addEventListener('keydown', handleEsc);
         }
-    });
-
-    // Обработка кнопки "Назад" в браузере или ESC на клавиатуре для закрытия
-    const handleEsc = (e) => {
-        if (e.key === 'Escape') {
-            closeBtn.click();
-            document.removeEventListener('keydown', handleEsc);
-        }
-    };
-    document.addEventListener('keydown', handleEsc);
-}
-
-
     </script>
 </body>
 </html>
