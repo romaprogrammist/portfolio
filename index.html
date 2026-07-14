@@ -378,7 +378,7 @@
         <!-- Описание рецензента -->
         <div class="glass-card p-6 md:p-8 rounded-sm mb-8 border-l-2 border-l-brand-cyan">
             <p class="text-brand-text text-sm md:text-base leading-relaxed">
-                Проект симулятора $BB84$ успешно прошел независимую экспертизу в <strong>Институте физики им. Б.И. Степанова Национальной академии наук Беларуси</strong> (Официальный отзыв № 101-01-17/649). 
+                Проект симулятора BB84 успешно прошел независимую экспертизу в <strong>Институте физики им. Б.И. Степанова Национальной академии наук Беларуси</strong> (Официальный отзыв № 101-01-17/649). 
             </p>
             <div class="mt-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 font-mono text-xs text-brand-text-muted">
                 <span><strong class="text-white">Рецензент:</strong> А.Б. Михалычев</span>
@@ -436,40 +436,7 @@
                                 <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
                             </div>
                             <p class="text-brand-text leading-relaxed">
-                                Внедрена функция <code class="text-brand-cyan">$apply\_channel\_noise()$</code>. Физический шум моделируется как прохождение кубита через деполяризующий канал со случайными битовыми ($X$, Bit-flip) и фазовыми ($Z$, Phase-flip) ошибками. Это позволяет рассчитывать реальный QBER в неидеальной линии.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion item 2 -->
-            <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
-                <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
-                    <div class="flex items-center gap-4">
-                        <span class="font-mono text-xs text-brand-cyan/50">[02]</span>
-                        <span class="text-sm md:text-base font-bold text-white tracking-wide">Полное импортозамещение (Отказ от IBM Qiskit)</span>
-                    </div>
-                    <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                </button>
-                <div class="audit-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                    <div class="px-6 pb-6 pt-2 border-t border-brand-border/30 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
-                        <div class="bg-red-500/5 border border-red-500/20 p-4 rounded-sm">
-                            <div class="text-red-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-triangle-exclamation"></i> БЫЛО:
-                            </div>
-                            <p class="text-brand-text-muted/80 leading-relaxed">
-                                Симулятор зависел от американской библиотеки Qiskit (разработка IBM), доступ к справочным материалам которой заблокирован для белорусских IP-адресов.
-                            </p>
-                        </div>
-                        <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-sm">
-                            <div class="text-emerald-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
-                            </div>
-                            <p class="text-brand-text leading-relaxed">
-                                Проведен полный рефакторинг ядра. Мы полностью отказались от Qiskit. Математический аппарат квантовых вычислений, операции над векторами в гильбертовом пространстве и сфера Блоха симулируются на собственном легковесном бэкенде с использованием чистого Python и библиотеки NumPy.
+                                Внедрена функция <code class="text-brand-cyan">apply\_channel\_noise()</code>. Физический шум моделируется как прохождение кубита через деполяризующий канал со случайными битовыми (X, Bit-flip) и фазовыми (Z, Phase-flip) ошибками. Это позволяет рассчитывать реальный QBER в неидеальной линии.
                             </p>
                         </div>
                     </div>
@@ -480,7 +447,7 @@
             <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
                 <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
                     <div class="flex items-center gap-4">
-                        <span class="font-mono text-xs text-brand-cyan/50">[03]</span>
+                        <span class="font-mono text-xs text-brand-cyan/50">[02]</span>
                         <span class="text-sm md:text-base font-bold text-white tracking-wide">Классическая постобработка (LDPC & Хэширование)</span>
                     </div>
                     <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
@@ -502,7 +469,7 @@
                                 <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
                             </div>
                             <p class="text-brand-text leading-relaxed">
-                                Реализован полный цикл постобработки. Интегрирована функция <code class="text-brand-cyan">$error\_correction\_ldpc\_like()$</code> для исправления ошибок через классическую сверку четности блоков, а также функция <code class="text-brand-cyan">$privacy\_amplification()$</code> на базе $\text{SHA-256}$ для полного устранения корреляций и уничтожения информационного превосходства Евы.
+                                Реализован полный цикл постобработки. Интегрирована функция <code class="text-brand-cyan">error\_correction\_ldpc\_like()</code> для исправления ошибок через классическую сверку четности блоков, а также функция <code class="text-brand-cyan">privacy\_amplification()</code> на базе \text{SHA-256} для полного устранения корреляций и уничтожения информационного превосходства Евы.
                             </p>
                         </div>
                     </div>
@@ -513,7 +480,7 @@
             <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
                 <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
                     <div class="flex items-center gap-4">
-                        <span class="font-mono text-xs text-brand-cyan/50">[04]</span>
+                        <span class="font-mono text-xs text-brand-cyan/50">[03]</span>
                         <span class="text-sm md:text-base font-bold text-white tracking-wide">Расширение векторов атак Евы</span>
                     </div>
                     <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
@@ -535,7 +502,7 @@
                                 <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
                             </div>
                             <p class="text-brand-text leading-relaxed">
-                                Добавлены продвинутые сценарии: Бреговская/промежуточная атака (перехват под углом $22.5^\circ$ с использованием гейта $r_y(\pi/4)$), маскирующаяся под естественные шумы канала на коротких последовательностях, а также когерентная атака с использованием квантовой памяти (запутывание транзитных кубитов через гейты $CX$).
+                                Добавлены продвинутые сценарии: Бреговская/промежуточная атака (перехват под углом 22.5 с использованием гейта r_y(pi4)), маскирующаяся под естественные шумы канала на коротких последовательностях, а также когерентная атака с использованием квантовой памяти (запутывание транзитных кубитов через гейты CX).
                             </p>
                         </div>
                     </div>
@@ -546,7 +513,7 @@
             <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
                 <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
                     <div class="flex items-center gap-4">
-                        <span class="font-mono text-xs text-brand-cyan/50">[05]</span>
+                        <span class="font-mono text-xs text-brand-cyan/50">[04]</span>
                         <span class="text-sm md:text-base font-bold text-white tracking-wide">Открытость исходного кода</span>
                     </div>
                     <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
