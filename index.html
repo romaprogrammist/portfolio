@@ -440,12 +440,34 @@
                     <h3 class="text-4xl font-black uppercase tracking-tight text-white">Академическая и профессиональная аккредитация</h3>
                 </div>
                 <div class="text-brand-text-muted font-mono text-xs uppercase hidden md:block">
-                    // Проверенных документов: 5
+                    // Проверенных документов: 6
                 </div>
             </div>
 
             <!-- List Layout for Certificates -->
             <div class="space-y-4">
+
+                <!-- Cert 0: BSU Fin Literacy (NEW) -->
+                <div class="glass-card p-6 rounded-sm flex flex-col md:flex-row justify-between items-center gap-6 group">
+                    <div class="flex items-center gap-6 w-full md:w-auto">
+                        <div class="w-14 h-14 rounded-sm bg-brand-cyan/10 border border-brand-cyan/20 flex items-center justify-center group-hover:bg-brand-cyan/20 transition-colors shrink-0">
+                            <i class="fa-solid fa-building-columns text-brand-cyan text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[10px] text-brand-cyan tracking-widest uppercase block mb-1">Экономический Факультет БГУ</span>
+                            <h4 class="text-lg font-bold text-white leading-tight">Школа финансовой грамотности для старшеклассников</h4>
+                            <p class="text-brand-text-muted text-xs font-mono mt-1">Изучение основ финансового планирования, инвестиционных инструментов и базовых макроэкономических показателей. Пройдено в июле 2026 г.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 w-full md:w-auto justify-end">
+                        <button onclick="verifyCertificate('Школа финансовой грамотности для старшеклассников', 'Экономический факультет БГУ', 'BSU-FIN-2026-07', 'https://drive.google.com/file/d/154q2g7G3E0_X2DHL2tBZa1C_7wUhjrH7/view?usp=sharing')" class="w-full md:w-auto text-center font-mono text-xs border border-brand-cyan/30 hover:bg-brand-cyan hover:text-brand-bg text-brand-cyan px-6 py-3 rounded-sm transition-all uppercase tracking-wider">
+                            Детали <i class="fa-solid fa-expand ml-1"></i>
+                        </button>
+                        <a href="https://drive.google.com/file/d/154q2g7G3E0_X2DHL2tBZa1C_7wUhjrH7/view?usp=sharing" target="_blank" class="w-12 h-12 rounded-sm border border-brand-border hover:border-brand-cyan flex items-center justify-center text-brand-text-muted hover:text-brand-cyan transition-colors shrink-0">
+                            <i class="fa-solid fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
                 
                 <!-- Cert 1: IBM -->
                 <div class="glass-card p-6 rounded-sm flex flex-col md:flex-row justify-between items-center gap-6 group">
@@ -569,21 +591,43 @@
                 <h3 class="text-4xl font-black uppercase tracking-tight text-white">Олимпиады и Исследования</h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Balanced 3-column Grid for Key Accomplishments -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- 100 Ideas for Belarus -->
                 <div class="group relative bg-brand-surface/40 border border-brand-border p-1 rounded-sm overflow-hidden transition-all duration-300 hover:border-brand-cyan/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)]">
                     <div class="absolute inset-0 bg-gradient-to-br from-brand-cyan/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative p-8">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-sm bg-brand-cyan/20 flex items-center justify-center text-brand-cyan font-mono font-bold text-xl">100</div>
-                            <h4 class="text-2xl font-black uppercase tracking-tight text-white">100 Идей для Беларуси</h4>
+                    <div class="relative p-8 h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-sm bg-brand-cyan/20 flex items-center justify-center text-brand-cyan font-mono font-bold text-xl">100</div>
+                                <h4 class="text-2xl font-black uppercase tracking-tight text-white">100 Идей для Беларуси</h4>
+                            </div>
+                            <p class="text-brand-text-muted text-sm mb-8 leading-relaxed">
+                                Победитель зонального этапа с масштабным научно-исследовательским проектом симуляции квантового распределения ключей (QKD) и анализа уязвимостей в сетях передачи данных.
+                            </p>
                         </div>
-                        <p class="text-brand-text-muted text-sm mb-8 leading-relaxed">
-                            Победитель зонального этапа с масштабным научно-исследовательским проектом симуляции квантового распределения ключей (QKD) и анализа уязвимостей в сетях передачи данных.
-                        </p>
-                        <div class="flex gap-4">
+                        <div class="flex gap-4 mt-auto">
                             <a href="https://drive.google.com/file/d/1I1k875ieEcV5PheK9oWmK1ZtDYJponIr/view" target="_blank" class="font-mono text-xs uppercase font-bold tracking-widest text-brand-cyan hover:underline">Сертификат <i class="fa-solid fa-file-pdf ml-1"></i></a>
                             <a href="https://drive.google.com/file/d/16RK0jnFpa42Vl3gW72TGiz5gH3OJz4VY/view" target="_blank" class="font-mono text-xs uppercase font-bold tracking-widest text-brand-violet-light hover:underline">Диплом <i class="fa-solid fa-file-pdf ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BSU Essay Award "KOT" (NEW ITEM) -->
+                <div class="group relative bg-brand-surface/40 border border-brand-border p-1 rounded-sm overflow-hidden transition-all duration-300 hover:border-brand-cyan/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)]">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-cyan/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative p-8 h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-sm bg-brand-cyan/20 flex items-center justify-center text-brand-cyan font-mono font-bold text-xl">КОТ</div>
+                                <h4 class="text-2xl font-black uppercase tracking-tight text-white">Эссе БГУ // Траектории</h4>
+                            </div>
+                            <p class="text-brand-text-muted text-sm mb-8 leading-relaxed">
+                                Награжден грамотой декана экономического факультета БГУ за лучшее научно-исследовательское эссе в рамках республиканского образовательного проекта «Карьерно-образовательные траектории выпускников школ».
+                            </p>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="https://drive.google.com/file/d/1kJV8L0GBdcaR2KXDQ5uTM8ZmdzL47ggH/view?usp=sharing" target="_blank" class="font-mono text-xs uppercase font-bold tracking-widest text-brand-cyan hover:underline inline-block">Проверить грамоту <i class="fa-solid fa-external-link ml-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -591,15 +635,19 @@
                 <!-- Physics ITMO / SPbSU -->
                 <div class="group relative bg-brand-surface/40 border border-brand-border p-1 rounded-sm overflow-hidden transition-all duration-300 hover:border-brand-violet/40 hover:shadow-[0_0_20px_rgba(182,0,248,0.05)]">
                     <div class="absolute inset-0 bg-gradient-to-br from-brand-violet/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative p-8">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-sm bg-brand-violet/20 flex items-center justify-center text-brand-violet-light font-mono font-bold text-xl">Φ</div>
-                            <h4 class="text-2xl font-black uppercase tracking-tight text-white">ITMO / СПбГУ по Физике</h4>
+                    <div class="relative p-8 h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-sm bg-brand-violet/20 flex items-center justify-center text-brand-violet-light font-mono font-bold text-xl">Φ</div>
+                                <h4 class="text-2xl font-black uppercase tracking-tight text-white">ITMO / СПбГУ по Физике</h4>
+                            </div>
+                            <p class="text-brand-text-muted text-sm mb-8 leading-relaxed">
+                                Диплом II степени в авторитетной интернет-олимпиаде школьников по физике, организованной ведущими техническими вузами России (дистанционный этап, 9 класс).
+                            </p>
                         </div>
-                        <p class="text-brand-text-muted text-sm mb-8 leading-relaxed">
-                            Диплом II степени в авторитетной интернет-олимпиаде школьников по физике, организованной ведущими техническими вузами России (дистанционный этап, 9 класс).
-                        </p>
-                        <a href="https://drive.google.com/file/d/1s9bfrWRQMiZT9zkwJ75oIXAfDLEcmdl5/view?usp=drivesdk" target="_blank" class="font-mono text-xs uppercase font-bold tracking-widest text-brand-cyan hover:underline">Проверить Диплом <i class="fa-solid fa-external-link ml-1"></i></a>
+                        <div class="mt-auto">
+                            <a href="https://drive.google.com/file/d/1s9bfrWRQMiZT9zkwJ75oIXAfDLEcmdl5/view?usp=drivesdk" target="_blank" class="font-mono text-xs uppercase font-bold tracking-widest text-brand-cyan hover:underline inline-block">Проверить Диплом <i class="fa-solid fa-external-link ml-1"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1071,7 +1119,7 @@
                     `;
                     break;
                 case 'certs':
-                    reply = 'MIT xPRO (QCRW-9921), Stepik Python Advanced (100% Score), Mimo Dev (Professional). Нажмите "Детали" выше для верификации.';
+                    reply = 'БГУ Финансовая грамотность (BSU-FIN-2026-07), БГУ Эссе «КОТ», IBM Basics of Quantum Info (Q_CID_91094032), Stepik Python Advanced, Mimo Dev Pro. Нажмите "Детали" в секции сертификатов для верификации.';
                     break;
                 case 'contact':
                     reply = 'Прямая связь: <span class="text-white font-bold">rommaxcontact@gmail.com</span> или GitHub: <span class="text-white font-bold">romaprogrammist</span>';
