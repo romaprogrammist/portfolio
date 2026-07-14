@@ -440,7 +440,7 @@
                     <h3 class="text-4xl font-black uppercase tracking-tight text-white">Академическая и профессиональная аккредитация</h3>
                 </div>
                 <div class="text-brand-text-muted font-mono text-xs uppercase hidden md:block">
-                    // Проверенных документов: 6
+                    // Проверенных документов: 7
                 </div>
             </div>
 
@@ -464,6 +464,28 @@
                             Детали <i class="fa-solid fa-expand ml-1"></i>
                         </button>
                         <a href="https://drive.google.com/file/d/154q2g7G3E0_X2DHL2tBZa1C_7wUhjrH7/view?usp=sharing" target="_blank" class="w-12 h-12 rounded-sm border border-brand-border hover:border-brand-cyan flex items-center justify-center text-brand-text-muted hover:text-brand-cyan transition-colors shrink-0">
+                            <i class="fa-solid fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 0.5: Gloria 2026 (NEW) -->
+                <div class="glass-card p-6 rounded-sm flex flex-col md:flex-row justify-between items-center gap-6 group">
+                    <div class="flex items-center gap-6 w-full md:w-auto">
+                        <div class="w-14 h-14 rounded-sm bg-brand-cyan/10 border border-brand-cyan/20 flex items-center justify-center group-hover:bg-brand-cyan/20 transition-colors shrink-0">
+                            <i class="fa-solid fa-graduation-cap text-brand-cyan text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[10px] text-brand-cyan tracking-widest uppercase block mb-1">Поставская гимназия</span>
+                            <h4 class="text-lg font-bold text-white leading-tight">Диплом XVIII научно-практической конференции «Глория»</h4>
+                            <p class="text-brand-text-muted text-xs font-mono mt-1">Диплом победителя за лучшую исследовательскую работу. Награжден Максимов Роман. Выдан 16.05.2026 г.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 w-full md:w-auto justify-end">
+                        <button onclick="verifyCertificate('Диплом XVIII конференции «Глория»', 'ГУО Поставская гимназия', 'GLORIA-XVIII-2026', 'https://drive.google.com/file/d/1kApl9FI1MGzhz0ghK_DsZ1KLrKEawy9A/view?usp=sharing')" class="w-full md:w-auto text-center font-mono text-xs border border-brand-cyan/30 hover:bg-brand-cyan hover:text-brand-bg text-brand-cyan px-6 py-3 rounded-sm transition-all uppercase tracking-wider">
+                            Детали <i class="fa-solid fa-expand ml-1"></i>
+                        </button>
+                        <a href="https://drive.google.com/file/d/1kApl9FI1MGzhz0ghK_DsZ1KLrKEawy9A/view?usp=sharing" target="_blank" class="w-12 h-12 rounded-sm border border-brand-border hover:border-brand-cyan flex items-center justify-center text-brand-text-muted hover:text-brand-cyan transition-colors shrink-0">
                             <i class="fa-solid fa-external-link"></i>
                         </a>
                     </div>
@@ -662,10 +684,10 @@
                 </a>
                 
                 <!-- Gloria -->
-                <a href="https://drive.google.com/file/d/1lq_K6JbOA927ktmZ2Q48b3bBYpnnAfrC/view?usp=drivesdk" target="_blank" class="p-6 border border-brand-border bg-brand-surface/20 rounded-sm hover:border-brand-cyan/50 transition-all duration-300 block hover:-translate-y-1">
-                    <span class="text-xs text-brand-cyan font-mono">[2025.05]</span>
+                <a href="https://drive.google.com/file/d/1kApl9FI1MGzhz0ghK_DsZ1KLrKEawy9A/view?usp=sharing" target="_blank" class="p-6 border border-brand-border bg-brand-surface/20 rounded-sm hover:border-brand-cyan/50 transition-all duration-300 block hover:-translate-y-1">
+                    <span class="text-xs text-brand-cyan font-mono">[2026.05]</span>
                     <h5 class="text-base font-bold text-white mt-2">Научная Конференция «Глория»</h5>
-                    <p class="text-xs text-brand-text-muted mt-1 leading-relaxed">Диплом II степени за лучшую научно-практическую работу.</p>
+                    <p class="text-xs text-brand-text-muted mt-1 leading-relaxed">Диплом победителя XVIII открытой конференции за лучшую работу.</p>
                 </a>
 
                 <!-- Young Programmer -->
@@ -1119,7 +1141,7 @@
                     `;
                     break;
                 case 'certs':
-                    reply = 'БГУ Финансовая грамотность (BSU-FIN-2026-07), БГУ Эссе «КОТ», IBM Basics of Quantum Info (Q_CID_91094032), Stepik Python Advanced, Mimo Dev Pro. Нажмите "Детали" в секции сертификатов для верификации.';
+                    reply = 'БГУ Финансовая грамотность (BSU-FIN-2026-07), БГУ Эссе «КОТ», Конференция «Глория» 2026, IBM Basics of Quantum Info (Q_CID_91094032), Stepik Python Advanced, Mimo Dev Pro. Нажмите "Детали" в секции сертификатов для верификации.';
                     break;
                 case 'contact':
                     reply = 'Прямая связь: <span class="text-white font-bold">rommaxcontact@gmail.com</span> или GitHub: <span class="text-white font-bold">romaprogrammist</span>';
