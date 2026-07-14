@@ -356,7 +356,292 @@
             </div>
         </div>
     </section>
+<!-- ========================================== -->
+<!-- НАЧАЛО СЕКЦИИ: НАУЧНЫЙ АУДИТ И МОДЕРНИЗАЦИЯ -->
+<!-- ========================================== -->
+<section id="scientific-audit" class="py-24 bg-brand-bg border-b border-brand-border relative">
+    <div class="max-w-7xl mx-auto px-6 md:px-16">
+        
+        <!-- Заголовок секции -->
+        <div class="flex flex-col md:flex-row justify-between md:items-end items-start mb-16 gap-6">
+            <div>
+                <h2 class="text-xs font-bold text-brand-cyan uppercase tracking-[0.3em] mb-4">// НЕЗАВИСИМАЯ ВЕРИФИКАЦИЯ</h2>
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-white flex items-center gap-3">
+                    <span class="text-brand-cyan"><i class="fa-solid fa-microscope"></i></span> Научный аудит и модернизация проекта
+                </h3>
+            </div>
+            <div class="text-brand-text-muted font-mono text-[10px] uppercase border border-brand-border p-2 bg-brand-surface-low/30">
+                РЕЦЕНЗИЯ № 101-01-17/649
+            </div>
+        </div>
 
+        <!-- Описание рецензента -->
+        <div class="glass-card p-6 md:p-8 rounded-sm mb-8 border-l-2 border-l-brand-cyan">
+            <p class="text-brand-text text-sm md:text-base leading-relaxed">
+                Проект симулятора $BB84$ успешно прошел независимую экспертизу в <strong>Институте физики им. Б.И. Степанова Национальной академии наук Беларуси</strong> (Официальный отзыв № 101-01-17/649). 
+            </p>
+            <div class="mt-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 font-mono text-xs text-brand-text-muted">
+                <span><strong class="text-white">Рецензент:</strong> А.Б. Михалычев</span>
+                <span class="hidden sm:inline-block text-brand-cyan/30">|</span>
+                <span>Ведущий научный сотрудник центра «Квантовая оптика и квантовая информатика»</span>
+                <span class="hidden sm:inline-block text-brand-cyan/30">|</span>
+                <span class="text-brand-violet-light">д.ф.-м.н., доцент</span>
+            </div>
+        </div>
+
+        <!-- 1. Плашка текущего статуса -->
+        <div class="relative overflow-hidden bg-emerald-500/5 border border-emerald-500/30 rounded-sm p-6 mb-12 flex flex-col md:flex-row items-start md:items-center gap-4 shadow-[0_0_15px_rgba(16,185,129,0.02)]">
+            <div class="flex items-center gap-3 shrink-0">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span class="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">Текущий статус:</span>
+            </div>
+            <p class="text-brand-text-muted text-xs md:text-sm leading-relaxed">
+                Все научно-технические рекомендации эксперта полностью интегрированы в архитектуру симулятора версии <strong class="text-white">v3</strong>. Модернизированный проект и обновленная пояснительная записка отправлены в Институт физики НАН Беларуси на повторную верификацию.
+            </p>
+        </div>
+
+        <!-- 2. Интерактивный блок «Было / Стало» (Аккордеоны) -->
+        <h4 class="font-mono text-xs font-bold text-brand-cyan uppercase tracking-wider mb-6 flex items-center gap-2">
+            <span>[ SYSTEM_CHANGELOG_v3 ]</span> Интегрированные улучшения:
+        </h4>
+        
+        <div class="space-y-4 mb-12">
+            
+            <!-- Accordion item 1 -->
+            <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
+                <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-xs text-brand-cyan/50">[01]</span>
+                        <span class="text-sm md:text-base font-bold text-white tracking-wide">Моделирование технологического шума в канале (QBER)</span>
+                    </div>
+                    <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </button>
+                <div class="audit-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-border/30 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
+                        <div class="bg-red-500/5 border border-red-500/20 p-4 rounded-sm">
+                            <div class="text-red-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> БЫЛО:
+                            </div>
+                            <p class="text-brand-text-muted/80 leading-relaxed">
+                                Идеализированная модель передачи кубитов без учета естественной деградации сигнала в среде.
+                            </p>
+                        </div>
+                        <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-sm">
+                            <div class="text-emerald-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
+                            </div>
+                            <p class="text-brand-text leading-relaxed">
+                                Внедрена функция <code class="text-brand-cyan">$apply\_channel\_noise()$</code>. Физический шум моделируется как прохождение кубита через деполяризующий канал со случайными битовыми ($X$, Bit-flip) и фазовыми ($Z$, Phase-flip) ошибками. Это позволяет рассчитывать реальный QBER в неидеальной линии.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion item 2 -->
+            <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
+                <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-xs text-brand-cyan/50">[02]</span>
+                        <span class="text-sm md:text-base font-bold text-white tracking-wide">Полное импортозамещение (Отказ от IBM Qiskit)</span>
+                    </div>
+                    <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </button>
+                <div class="audit-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-border/30 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
+                        <div class="bg-red-500/5 border border-red-500/20 p-4 rounded-sm">
+                            <div class="text-red-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> БЫЛО:
+                            </div>
+                            <p class="text-brand-text-muted/80 leading-relaxed">
+                                Симулятор зависел от американской библиотеки Qiskit (разработка IBM), доступ к справочным материалам которой заблокирован для белорусских IP-адресов.
+                            </p>
+                        </div>
+                        <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-sm">
+                            <div class="text-emerald-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
+                            </div>
+                            <p class="text-brand-text leading-relaxed">
+                                Проведен полный рефакторинг ядра. Мы полностью отказались от Qiskit. Математический аппарат квантовых вычислений, операции над векторами в гильбертовом пространстве и сфера Блоха симулируются на собственном легковесном бэкенде с использованием чистого Python и библиотеки NumPy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion item 3 -->
+            <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
+                <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-xs text-brand-cyan/50">[03]</span>
+                        <span class="text-sm md:text-base font-bold text-white tracking-wide">Классическая постобработка (LDPC & Хэширование)</span>
+                    </div>
+                    <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </button>
+                <div class="audit-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-border/30 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
+                        <div class="bg-red-500/5 border border-red-500/20 p-4 rounded-sm">
+                            <div class="text-red-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> БЫЛО:
+                            </div>
+                            <p class="text-brand-text-muted/80 leading-relaxed">
+                                Симулятор работал без финальных стадий квантового распределения ключей (исправления ошибок и усиления приватности).
+                            </p>
+                        </div>
+                        <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-sm">
+                            <div class="text-emerald-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
+                            </div>
+                            <p class="text-brand-text leading-relaxed">
+                                Реализован полный цикл постобработки. Интегрирована функция <code class="text-brand-cyan">$error\_correction\_ldpc\_like()$</code> для исправления ошибок через классическую сверку четности блоков, а также функция <code class="text-brand-cyan">$privacy\_amplification()$</code> на базе $\text{SHA-256}$ для полного устранения корреляций и уничтожения информационного превосходства Евы.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion item 4 -->
+            <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
+                <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-xs text-brand-cyan/50">[04]</span>
+                        <span class="text-sm md:text-base font-bold text-white tracking-wide">Расширение векторов атак Евы</span>
+                    </div>
+                    <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </button>
+                <div class="audit-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-border/30 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
+                        <div class="bg-red-500/5 border border-red-500/20 p-4 rounded-sm">
+                            <div class="text-red-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> БЫЛО:
+                            </div>
+                            <p class="text-brand-text-muted/80 leading-relaxed">
+                                Моделировалась только простейшая базовая атака перехвата-повторной отправки (Intercept-Resend) в совпадающих базисах.
+                            </p>
+                        </div>
+                        <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-sm">
+                            <div class="text-emerald-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
+                            </div>
+                            <p class="text-brand-text leading-relaxed">
+                                Добавлены продвинутые сценарии: Бреговская/промежуточная атака (перехват под углом $22.5^\circ$ с использованием гейта $r_y(\pi/4)$), маскирующаяся под естественные шумы канала на коротких последовательностях, а также когерентная атака с использованием квантовой памяти (запутывание транзитных кубитов через гейты $CX$).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion item 5 -->
+            <div class="audit-accordion border border-brand-border bg-brand-surface/40 hover:border-brand-cyan/30 rounded-sm transition-all duration-300">
+                <button class="audit-accordion-trigger w-full px-6 py-5 flex justify-between items-center text-left outline-none">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-xs text-brand-cyan/50">[05]</span>
+                        <span class="text-sm md:text-base font-bold text-white tracking-wide">Открытость исходного кода</span>
+                    </div>
+                    <span class="audit-accordion-icon text-brand-text-muted/50 transition-transform duration-300">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </button>
+                <div class="audit-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-border/30 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
+                        <div class="bg-red-500/5 border border-red-500/20 p-4 rounded-sm">
+                            <div class="text-red-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> БЫЛО:
+                            </div>
+                            <p class="text-brand-text-muted/80 leading-relaxed">
+                                Часть ключевых функций (например, запуск симуляции run_bb84_simulation) была скрыта во внутренних вызовах.
+                            </p>
+                        </div>
+                        <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-sm">
+                            <div class="text-emerald-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> СТАЛО (v3):
+                            </div>
+                            <p class="text-brand-text leading-relaxed">
+                                Исходный код ядра полностью открыт, детально задокументирован и опубликован в открытом репозитории. Алгоритмы абсолютно прозрачны для внешнего аудита. <br>
+                                <a href="https://github.com/romaprogrammist/QKD-BB84-Simulator-Qiskit" target="_blank" class="inline-flex items-center text-brand-cyan hover:underline mt-3 gap-1">
+                                    <i class="fa-brands fa-github"></i> Ссылка на репозиторий <i class="fa-solid fa-up-right-from-square text-[9px]"></i>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. Кнопки действия -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="https://drive.google.com/file/d/1jjjYiUQrjdCQuuLRN9CkJ0jSkPQ-ob5D/view?usp=sharing" target="_blank" class="w-full sm:w-auto inline-flex justify-center items-center px-6 py-4 border border-brand-cyan/30 hover:bg-brand-cyan hover:text-brand-bg text-brand-cyan font-bold rounded-sm uppercase tracking-wider text-xs transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,242,255,0.25)] font-mono">
+                <i class="fa-solid fa-file-pdf mr-2"></i> Изучить отзыв НАНБ (PDF)
+            </a>
+            <a href="https://github.com/romaprogrammist/QKD-BB84-Simulator-Qiskit" target="_blank" class="w-full sm:w-auto inline-flex justify-center items-center px-6 py-4 bg-brand-surface border border-brand-border hover:border-brand-cyan text-brand-text hover:text-brand-cyan font-bold rounded-sm uppercase tracking-wider text-xs transition-all duration-300 font-mono">
+                <i class="fa-brands fa-github mr-2"></i> Исходный код v3 на GitHub
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- Кастомные стили для секции аудита -->
+<style>
+    /* Аккордеоны плавной высоты */
+    .audit-accordion-content {
+        transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+    }
+    .audit-accordion.active {
+        border-color: rgba(0, 242, 255, 0.4);
+        background: rgba(11, 20, 28, 0.85);
+        box-shadow: 0 0 25px rgba(0, 242, 255, 0.08);
+    }
+    .audit-accordion.active .audit-accordion-icon {
+        transform: rotate(180deg);
+        color: #00f2ff;
+    }
+    .audit-accordion-trigger:focus {
+        outline: none;
+    }
+</style>
+
+<!-- Скрипт логики аккордеона -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const accordions = document.querySelectorAll(".audit-accordion");
+
+        accordions.forEach(acc => {
+            const trigger = acc.querySelector(".audit-accordion-trigger");
+            const content = acc.querySelector(".audit-accordion-content");
+
+            trigger.addEventListener("click", () => {
+                const isActive = acc.classList.contains("active");
+
+                // Закрыть все остальные аккордеоны перед открытием текущего
+                accordions.forEach(item => {
+                    item.classList.remove("active");
+                    item.querySelector(".audit-accordion-content").style.maxHeight = "0px";
+                });
+
+                if (!isActive) {
+                    acc.classList.add("active");
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    });
+</script>
+<!-- ========================================== -->
+<!-- КОНЕЦ СЕКЦИИ: НАУЧНЫЙ АУДИТ И МОДЕРНИЗАЦИЯ -->
+<!-- ========================================== -->
     <!-- Projects Section -->
     <section id="projects" class="py-24 bg-brand-surface-low/30">
         <div class="max-w-7xl mx-auto px-6 md:px-16">
